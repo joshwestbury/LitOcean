@@ -1,0 +1,30 @@
+<h1>Reviews</h1>
+
+
+<h3>Books Title</h3>
+<ul>
+    {{#each results}}
+    <li>{{book_title}}</li>
+    {{/each}}
+</ul>
+
+<h3>Book Review</h3>
+<ul>
+    {{#each results}}
+    <li>{{review}}</li>
+    {{/each}}
+</ul>
+
+<h3>Category</h3>
+<ul>
+    {{#each results}}
+    <li>{{category}}</li>
+    {{/each}}
+</ul>
+
+<h3>Publication Date</h3>
+<ul>
+    {{#each results}}
+    <li>{{publication_date}}</li>
+    {{/each}}
+</ul>
