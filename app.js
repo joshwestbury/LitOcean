@@ -60,19 +60,18 @@ app.get('/create_review', function(request, response){
 
 app.post('/create_review', function(request, response, next) {
     var title = request.body.book_title;
-    var category = request.body.category
+    var category = request.body.category;
     var date = request.body.publication_date
     var review = request.body.review
 
-    var q = `INSERT INTO reviews (id, book_title, category, publication_date, review) VALUES (default, ${title}, ${category}, ${date}, ${review})`;
-
-    db.none(q)
+    db.none(`INSERT INTO reviews VALUES (default, $1, $2, $3, $4)`, [title, category, date, review])
         .then(function() {
             response.redirect('/create_review');
       })
       .catch(next);
 });
 
+// var q = `INSERT INTO reviews (id, book_title, category, publication_date, review) VALUES (default, ${title}, ${category}, ${date}, ${review})`;
 
 
 // db.none(`INSERT INTO reviews VALUES (default, $1, $2, $3, $4)`, title, category, date, review)
