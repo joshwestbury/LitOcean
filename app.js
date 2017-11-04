@@ -60,11 +60,12 @@ app.get('/create_review', function(request, response){
 
 app.post('/create_review', function(request, response, next) {
     var title = request.body.book_title;
+    var author = request.body.author;
     var category = request.body.category;
-    var date = request.body.publication_date
-    var review = request.body.review
+    var date = request.body.publication_date;
+    var review = request.body.review;
 
-    db.none(`INSERT INTO reviews VALUES (default, $1, $2, $3, $4)`, [title, category, date, review])
+    db.none(`INSERT INTO reviews VALUES (default, $1, $2, $3, $4, $5)`, [title, author, category, date, review])
         .then(function() {
             response.redirect('/create_review');
       })
