@@ -32,7 +32,7 @@ app.get('/search/', function(request, response, next) {
 })
 
 app.post('search/:searchTerm', function(request, response, next) {
-    var desc = request.body.description;
+    //var desc = request.body.description;
 
     response.redirect('/search/:searchTerm');
 });
@@ -50,6 +50,33 @@ app.get('/reviews/:id', function(request, response, next) {
         })
         .catch(next)
 });
+
+app.get('/create_review', function(request, response){
+    var context = {title: 'Create Review'}
+
+    response.render('create_review.hbs', context)
+
+});
+
+app.post('/create_review', function(request, response, next) {
+    var title = request.body.book_title;
+    var category = request.body.category
+    var date = request.body.publication_date
+    var review = request.body.review
+
+    var q = `INSERT INTO reviews (id, book_title, category, publication_date, review) VALUES (default, ${title}, ${category}, ${date}, ${review})`;
+
+    db.none(q)
+        .then(function() {
+            response.redirect('/create_review');
+      })
+      .catch(next);
+});
+
+
+
+// db.none(`INSERT INTO reviews VALUES (default, $1, $2, $3, $4)`, title, category, date, review)
+
 
 
 
