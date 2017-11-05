@@ -1,7 +1,11 @@
 
-body {
+html, body {
     height: 100%;
-    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    /*background-image: linear-gradient(to top, #09203f 0%, #537895 100%);*/
+}
+
+body {
+    background: linear-gradient(to bottom, #000066 1%, #33cccc 100%);
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'Josefin Slab', serif !important;
@@ -20,21 +24,28 @@ body {
 }
 
 button.btn.btn-primary{
-    background-color: #758596;
-    border-color: #ffc107;
-}
-
-#book-title {
-    margin-top: 20%;
-    margin-left: 10%;
-    margin-right: 60%;
+    background-color: #999999;
+    border-color: #cc33cc;
+    text-shadow: 2px, 2px, 2px, #cc33cc;
+    color: # #f2f2f2;
+    border-radius: 15px;
 }
 
 .col-sm-6 {
     margin-top: 25%;
 }
 
-.col-sm-4 {
-    margin-left: 5%;
-    margin-top: 5%
+.height{
+    margin-left: auto 5%;
+    margin-top: 2%
+}
+
+.navbar {
+    background-color:  #00e6e6;
+    font-weight: bold;
+    padding-top: 0.3rem !important;
+}
+
+.form-control {
+    border-radius: 15px !important;
 }
