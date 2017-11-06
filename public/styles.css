@@ -49,3 +49,11 @@ button.btn.btn-primary{
 .form-control {
     border-radius: 15px !important;
 }
+
+.google-btn {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    background: #ff5353;
+}
