@@ -1,9 +1,5 @@
 var express = require('express');
 var app = express();
-const mongoose = require("mongoose");
-const passportSetup = require('./config/passport-setup');
-const keys = require('./config/keys');
-const authRoutes = require('./auth-routes/auth-routes');
 const pgp = require('pg-promise')({
   promiseLib: Promise
 });
@@ -17,25 +13,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
 
-//connect to mongodb
-mongoose.connect(keys.mongodb.dbURI, () => {
-    console.log("connected to mongodb")
-});
-
-//set up auth routes
-app.use('/auth', authRoutes);
-
 app.get('/', function(request, response) {
     var context = {title: 'Home'}
-    response.render('login.hbs', context);
+    response.render('index.hbs', context);
 });
 
-app.get('/search', function(request, response){
-    var context = {title: 'Search'}
-    response.render('search.hbs', context);
-})
-
-app.get('/results/', function(request, response, next) {
+app.get('/search/', function(request, response, next) {
     var searchTerm = request.query.searchTerm;
     var context = {title: 'Search Results', searchTerm: searchTerm}
 
@@ -43,15 +26,15 @@ app.get('/results/', function(request, response, next) {
       .then(function(results) {
           context.results = results;
           //console.log(results);
-        response.render('results.hbs', context);
+        response.render('search.hbs', context);
       })
       .catch(next)
 })
 
-app.post('results/:searchTerm', function(request, response, next) {
+app.post('search/:searchTerm', function(request, response, next) {
     //var desc = request.body.description;
 
-    response.redirect('/results/:searchTerm');
+    response.redirect('/search/:searchTerm');
 });
 
 
@@ -88,6 +71,15 @@ app.post('/create_review', function(request, response, next) {
       })
       .catch(next);
 });
+
+// var q = `INSERT INTO reviews (id, book_title, category, publication_date, review) VALUES (default, ${title}, ${category}, ${date}, ${review})`;
+
+
+// db.none(`INSERT INTO reviews VALUES (default, $1, $2, $3, $4)`, title, category, date, review)
+
+
+
+
 
 
 app.listen(8080, function(){
