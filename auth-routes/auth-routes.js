@@ -3,7 +3,7 @@ const passport = require("passport");
 
 //auth login
 router.get('/login', (request, response) => {
-    response.render('login.hbs')
+    response.render('login', {user: request.user});
 });
 
 //auth logout
@@ -13,14 +13,14 @@ router.get('/logout', (request, response) => {
 });
 
 
-//auth with google
+//auth with google+
 router.get('/google',  passport.authenticate('google', {
     scope: ['profile']
 }));
 
 //callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (request, response) => {
-    response.send("You reached a callback URL")
+    response.send("You reached a redirect URL")
 });
 
 
