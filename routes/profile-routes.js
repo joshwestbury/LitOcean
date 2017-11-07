@@ -9,7 +9,7 @@ const authCheck = (request, response, next) => {
 };
 
 router.get('/', authCheck, (request, response) => {
-    console.log(request.user.username)
+    console.log('User', request.user);
     response.send('you are logged in, this is your profile - ' + request.user.username);
 });
 

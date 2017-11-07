@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
 
+app.set('view engine', 'hbs');
+
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000, //one day
     keys: [keys.session.cookieKey]

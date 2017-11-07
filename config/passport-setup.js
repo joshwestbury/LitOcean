@@ -9,7 +9,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
     User.findById(id).then((user) => {
-        done(null, user.id); // null is the error
+        done(null, user); // netninja has user.id but this returns udefined 
     });
 });
 
