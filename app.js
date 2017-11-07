@@ -5,6 +5,8 @@ mongoose.Promise = global.Promise;
 const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
 const authRoutes = require('./auth-routes/auth-routes');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 const pgp = require('pg-promise')({
   promiseLib: Promise
 });
@@ -12,11 +14,19 @@ const pgp = require('pg-promise')({
 const dbConfig = require('./db-config');
 const db = pgp(dbConfig);
 
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
+
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000, //one day
+    keys: [keys.session.cookieKey]
+}))
+
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 //connect to mongodb
 mongoose.connect(keys.mongodb.dbURI, () => {
