@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require("mongoose");
 const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
 const authRoutes = require('./auth-routes/auth-routes');
