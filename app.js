@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
-const authRoutes = require('./auth-routes/auth-routes');
+const authRoutes = require('./routes/auth-routes');
+const profileRoutes = require('./routes/profile-routes');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const pgp = require('pg-promise')({
@@ -35,6 +36,7 @@ mongoose.connect(keys.mongodb.dbURI, () => {
 
 //set up auth routes
 app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 
 app.get('/', function(request, response) {
     var context = {title: 'Home'}
