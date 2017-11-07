@@ -1,5 +1,5 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./keys');
 const User = require('../models/user-model');
 
@@ -10,8 +10,8 @@ passport.use(
         clientSecret: keys.google.clientSecret,
         callbackURL: '/auth/google/redirect'
     }, (accessToken, refreshToken, profile, done) => {
-        //passport callback function
-        User.findOne({googleId: profile.id}). then((currentUser) => {
+        //check if user already exists
+        User.findOne({googleId: profile.id}).then((currentUser) => {
             if(currentUser) {
                 //already have this user
                 console.log('user is: ', currentUser);

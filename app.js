@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 var app = express();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
