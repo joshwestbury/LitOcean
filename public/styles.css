@@ -21,6 +21,7 @@ body {
     margin-right: 30%;
 }
 
+
 .btn{
     margin-top: 5%;
     margin-left: 33%;
@@ -60,6 +61,10 @@ button.btn.btn-primary{
     font-size: 18px;
     padding: 10px;
     background: #ff5353;
+}
+
+.text-center {
+    text-align: center;
 }
 
 ul {

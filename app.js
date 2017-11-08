@@ -5,7 +5,9 @@ mongoose.Promise = global.Promise;
 const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
 const authRoutes = require('./routes/auth-routes');
-const profileRoutes = require('./routes/profile-routes');
+const profile = require('./routes/profile-routes');
+const profileRoutes = profile.router;
+const authCheck = profile.authCheck;
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const pgp = require('pg-promise')({
@@ -31,6 +33,11 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function (request, response, next) {
+    response.locals.user = request.user;
+    next();
+});
+
 //connect to mongodb
 mongoose.connect(keys.mongodb.dbURI, () => {
     console.log("connected to mongodb")
@@ -40,17 +47,18 @@ mongoose.connect(keys.mongodb.dbURI, () => {
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 
+//create home route
 app.get('/', function(request, response) {
-    var context = {title: 'Home'}
-    response.render('login.hbs', context);
+    context = {title: 'Home'}
+    response.render('index.hbs', context);
 });
 
-app.get('/search', function(request, response){
+app.get('/search', authCheck, function(request, response){
     var context = {title: 'Search'};
     response.render('search.hbs', context);
 })
 
-app.get('/results/', function(request, response, next) {
+app.get('/results/', authCheck, function(request, response, next) {
     var searchTerm = request.query.searchTerm;
     var context = {title: 'Search Results', searchTerm: searchTerm}
 
@@ -69,7 +77,7 @@ app.post('results/:searchTerm', function(request, response, next) {
 });
 
 
-app.get('/reviews/:id', function(request, response, next) {
+app.get('/reviews/:id', authCheck, function(request, response, next) {
     var id = request.params.id;
     var context = {title: 'Reviews'}
     var q = `SELECT * FROM reviews WHERE id=${id}`;
@@ -82,14 +90,14 @@ app.get('/reviews/:id', function(request, response, next) {
         .catch(next)
 });
 
-app.get('/create_review', function(request, response){
+app.get('/create_review', authCheck, function(request, response){
     var context = {title: 'Create Review'}
 
     response.render('create_review.hbs', context)
 
 });
 
-app.post('/create_review', function(request, response, next) {
+app.post('/create_review', authCheck, function(request, response, next) {
     var title = request.body.book_title;
     var author = request.body.author;
     var category = request.body.category;

@@ -12,4 +12,7 @@ router.get('/', authCheck, (request, response) => {
     response.render('profile', {user: request.user});
 });
 
-module.exports = router;
+module.exports = {
+    router: router,
+    authCheck: authCheck
+};
