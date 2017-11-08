@@ -51,6 +51,10 @@ button.btn.btn-primary{
     padding-top: 0.3rem !important;
 }
 
+.position-img {
+    align-items: flex-start;
+}
+
 .form-control {
     border-radius: 15px !important;
 }
@@ -63,9 +67,12 @@ button.btn.btn-primary{
     background: #ff5353;
 }
 
-.text-center {
+.text-place {
     text-align: center;
+    margin-top: 20%;
 }
+
+
 
 ul {
     color: #f2f2f2;
