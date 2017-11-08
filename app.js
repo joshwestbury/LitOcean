@@ -46,7 +46,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/search', function(request, response){
-    var context = {title: 'Search'}
+    var context = {title: 'Search'};
     response.render('search.hbs', context);
 })
 
@@ -65,7 +65,6 @@ app.get('/results/', function(request, response, next) {
 
 app.post('results/:searchTerm', function(request, response, next) {
     //var desc = request.body.description;
-
     response.redirect('/results/:searchTerm');
 });
 
