@@ -72,8 +72,27 @@ button.btn.btn-primary{
     margin-top: 20%;
 }
 
+.navbar-brand {
+    flex: 1;
+}
+
+img {
+    padding-right: 10px;
+}
 
 
 ul {
     color: #f2f2f2;
+}
+
+@media (min-width: 992px) {
+    .navbar-brand {
+        flex: none;
+    }
+}
+
+@media screen (min-width: 992px) {
+    img {
+        display: none;
+    }
 }
